@@ -1,0 +1,1 @@
+mc.cores.openmp=function() .Call("mc_cores_openmp")
