@@ -1,43 +1,13 @@
-wbart = function(x.train, 
-                 y.train, 
-                 x.test=matrix(0.0,0,0),
-                 sparse=FALSE, 
-                 theta=0, 
-                 omega=1,                     
-                 a=0.5, 
-                 b=1, 
-                 augment=FALSE, 
-                 rho=NULL,
-                 xinfo=matrix(0.0,0,0), 
-                 numcut=100L,
-                 usequants=FALSE, 
-                 cont=FALSE, 
-                 rm.const=TRUE, 
-                 grp=NULL,    ## group indices for predictors, see bartModelMatrix() for details
-                 xnames=NULL,  ## column names of x.train
-                 categorical.idx=NULL,  ## column indices of categorical predictors in x.train
-                 power=2.0,  ## not used when split.prob = "exponential"
-                 base=-1.0,  ## by default, base = 0.95 when split.prob="polynomial" and base = 0.5 when split.prob = "exponential"
-                 split.prob="polynomial",  ## specify if the split probability is polynomial (Chipman et al. 2010) or exponential (Rockova and Saha 2019)
-                 k=2.0, 
-                 sigmaf=NA,
-                 sigest=NA, 
-                 sigdf=3, 
-                 sigquant=.90, 
-                 lambda=NA,
-                 fmean=mean(y.train), 
-                 w=rep(1,length(y.train)),
-                 ntree=200L, 
-                 ndpost=1000L, 
-                 nskip=1000L, 
-                 keepevery=1L,
-                 nkeeptrain=ndpost, 
-                 nkeeptest=ndpost,
-                 nkeeptestmean=ndpost, 
-                 nkeeptreedraws=ndpost,
-                 printevery=100L, 
-                 transposed=FALSE,
-                 verbose=TRUE  ## control if information is printed out
+wbart = function(x.train, y.train, x.test=matrix(0.0,0,0),
+                 sparse=FALSE, theta=0, omega=1, a=0.5, b=1, augment=FALSE, rho=NULL,
+                 xinfo=matrix(0.0,0,0), numcut=100L, usequants=FALSE, cont=FALSE, rm.const=TRUE, 
+                 grp=NULL, xnames=NULL, categorical.idx=NULL,
+                 power=2.0, base=-1.0, split.prob="polynomial",
+                 k=2.0, sigmaf=NA, sigest=NA, sigdf=3, sigquant=.90, lambda=NA,
+                 fmean=mean(y.train), w=rep(1,length(y.train)),
+                 ntree=200L, ndpost=1000L, nskip=1000L, keepevery=1L,
+                 nkeeptrain=ndpost, nkeeptest=ndpost, nkeeptestmean=ndpost, nkeeptreedraws=ndpost,
+                 printevery=100L, transposed=FALSE, verbose=TRUE
                  ) {
   #--------------------------------------------------
   #data
@@ -227,16 +197,6 @@ wbart = function(x.train,
     res$mi = colMeans(t(apply(mr.mean, 1, function(s) s / sum(s))))
     names(res$mi) = as.list(xnames)
     dimnames(res$mr.mean)[[2]] = as.list(xnames)
-    
-    ## untruncated mi
-    # mr0_vecs = lapply(res$mr0_vecs, function(s) lapply(s, function(v) v[-1]))  # remove the meaningless first 0
-    # res$mr0_vecs = mr0_vecs
-    # mr0mean = matrix(unlist(lapply(mr0_vecs, function(s) lapply(s, function(v) ifelse(length(v)>0, mean(v), 0.0)))), 
-    #                 ncol = p, byrow = TRUE)
-    # res$mr0mean = mr0mean
-    # res$mi0 = colMeans(t(apply(mr0mean, 1, function(s) s/sum(s))))
-    # names(res$mi0) = as.list(xnames)
-    # dimnames(res$mr0mean)[[2]] = as.list(xnames)
   } else {
     ## merge importance scores for dummy variables
     varcount = matrix(NA, nrow = nkeeptreedraws, ncol = p0)
@@ -307,14 +267,6 @@ wbart = function(x.train,
     res$mi = colMeans(t(apply(mr.mean, 1, function(s) s / sum(s))))
     dimnames(res$mr.mean)[[2]] = as.list(xnames)
     names(res$mi) = as.list(xnames)
-    
-    ## untruncated mi 
-    # mr0mean = matrix(unlist(lapply(mr0_vecs, function(s) lapply(s, function(v) ifelse(length(v)>0, mean(v), 0.0)))), 
-    #                 ncol = p0, byrow = TRUE)
-    # res$mr0mean = mr0mean
-    # res$mi0 = colMeans(t(apply(mr0mean, 1, function(s) s/sum(s))))
-    # dimnames(res$mr0mean)[[2]] = as.list(xnames)
-    # names(res$mi0) = as.list(xnames)
   }
   
   res$rm.const = rm.const

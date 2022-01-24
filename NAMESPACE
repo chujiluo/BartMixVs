@@ -1,11 +1,11 @@
 useDynLib(BartMixVs, .registration=TRUE)
 #exportPattern("^[[:alpha:]]+")
+export(friedman, checkerboard, mixone, mixtwo)
 export(wbart, mc.wbart, pwbart, mc.pwbart)
 export(pbart, mc.pbart)
 export(mc.cores.openmp)
 export(bartModelMatrix)
 export(permute.vs, mc.permute.vs, median.inclusion.vs, mc.backward.vs, abc.vs, mc.abc.vs)
-export(Friedman, Checkerboard, Linear, Tree, MixOne, MixTwo)
 S3method(predict, wbart)
 S3method(predict, pbart)
 
