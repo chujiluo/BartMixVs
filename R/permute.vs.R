@@ -1,3 +1,147 @@
+#' Permutation-based variable selection approach
+#' 
+#' This function implements the permutation-based variable selection approach for BART (see Algorithm 1 in Luo and Daniels (2021)
+#' for details). Three types of variable importance measures are considered: BART variable inclusion proportions (VIP), BART 
+#' within-type variable inclusion proportions (within-type VIP) and BART Metropolis Importance (MI).\cr
+#' The permutation-based variable selection approach using BART VIP as the variable importance measure is proposed by Bleich et al.
+#' (2014). BART within-type VIP and BART MI are proposed by Luo and Daniels (2021), for the sake of the existence of mixed-type 
+#' predictors and the goal of allowing more relevant predictors into the model.
+#' 
+#' The detailed algorithm can be found in Algorithm 1 in Luo and Daniels (2021). The permutation-based variable selection approach
+#' using within-type VIP as the variable importance measure is only used when the predictors are of mixed-type; otherwise, it is
+#' the same as the one using VIP as the variable importance measure.\cr
+#' If \code{true.idx} is provided, the precision, recall and F1 scores will be returned for the three (or two if the predictors are
+#' of the same type) methods.\cr
+#' If \code{plot=TRUE}, three (or two if the predictors are of the same type) plots showing which predictors are selected 
+#' are generated.
+#' 
+#' @param x.train A matrix or a data frame of predictors values with each row corresponding to an observation and each column 
+#' corresponding to a predictor. If a predictor is a factor with \eqn{q} levels in a data frame, it is replaced with \eqn{q} dummy 
+#' variables.
+#' @param y.train A vector of response (continuous or binary) values.
+#' @param probit A Boolean argument indicating whether the response variable is binary or continuous; \code{probit=FALSE} (by default)
+#' means that the response variable is continuous. 
+#' @param npermute The number of permutations for estimating the null distributions of the variable importance scores.
+#' @param nreps The number of replications for obtaining the averaged (or median) variable importance scores based on the original 
+#' data set.
+#' @param alpha A number between \eqn{0} and \eqn{1}; a predictor is selected if its averaged (or median) variable importance score 
+#' exceeds the \eqn{1-\alpha} quantile of the corresponding null distribution.
+#' @param true.idx (Optional) A vector of indices of the true relevant predictors; if provided, metrics including precision, recall
+#' and F1 score will be returned.
+#' @param plot (Optional) A Boolean argument indicating whether plots are returned or not.
+#' @param n.var.plot The number of variables to be plotted.
+#' @param xinfo A matrix of cut-points with each row corresponding to a predictor and each column corresponding to a cut-point.
+#' \code{xinfo=matrix(0.0,0,0)} indicates the cut-points are specified by BART.
+#' @param numcut The number of possible cut-points; If a single number is given, this is used for all predictors; 
+#' Otherwise a vector with length equal to \code{ncol(x.train)} is required, where the \eqn{i-}th element gives the number of 
+#' cut-points for the \eqn{i-}th predictor in \code{x.train}. If \code{usequants=FALSE}, \code{numcut} equally spaced 
+#' cut-points are used to cover the range of values in the corresponding column of \code{x.train}. 
+#' If \code{usequants=TRUE}, then min(\code{numcut}, the number of unique values in the corresponding column of 
+#' \code{x.train} - 1) cut-point values are used.
+#' @param usequants A Boolean argument indicating how the cut-points in \code{xinfo} are generated; 
+#' If \code{usequants=TRUE}, uniform quantiles are used for the cut-points; Otherwise, the cut-points are generated uniformly.
+#' @param cont A Boolean argument indicating whether to assume all predictors are continuous.
+#' @param rm.const A Boolean argument indicating whether to remove constant predictors.
+#' @param k The number of prior standard deviations that \eqn{E(Y|x) = f(x)} is away from \eqn{+/-.5}. The response 
+#' (\code{y.train}) is internally scaled to the range from \eqn{-.5} to \eqn{.5}. The bigger \code{k} is, the more conservative 
+#' the fitting will be.
+#' @param power The power parameter of the polynomial splitting probability for the tree prior. Only used if 
+#' \code{split.prob="polynomial"}.
+#' @param base The base parameter of the polynomial splitting probability for the tree prior if \code{split.prob="polynomial"}; 
+#' if \code{split.prob="exponential"}, the probability of splitting a node at depth \eqn{d} is \code{base}\eqn{^d}. 
+#' @param split.prob A string indicating what kind of splitting probability is used for the tree prior. If 
+#' \code{split.prob="polynomial"}, the splitting probability in Chipman et al. (2010) is used; 
+#' If \code{split.prob="exponential"}, the splitting probability in Ročková and Saha (2019) is used.
+#' @param ntree The number of trees in the ensemble.
+#' @param ndpost The number of posterior samples returned.
+#' @param nskip The number of posterior samples burned in.
+#' @param keepevery Every \code{keepevery} posterior sample is kept to be returned to the user.
+#' @param printevery As the MCMC runs, a message is printed every \code{printevery} iterations.
+#' @param verbose A Boolean argument indicating whether any messages are printed out.
+#' 
+#' @return The function \code{permute.vs()} returns three (or two if the predictors are of the same type) plots if \code{plot=TRUE}
+#' and a list with the following components.
+#' \item{vip.imp.cols}{The vector of column indices of the predictors selected by the approach using VIP as the variable importance
+#' score.}
+#' \item{vip.imp.names}{The vector of column names of the predictors selected by the approach using VIP as the variable importance
+#' score.}
+#' \item{avg.vip}{The vector (length=\code{ncol(x.train)}) of the averaged VIPs based on the original data set; 
+#' \code{avg.vip=colMeans(avg.vip.mtx)}.}
+#' \item{avg.vip.mtx}{A matrix of VIPs based on the original data set, with each row corresponding to a repetition and each column
+#' corresponding to a predictor.}
+#' \item{permute.vips}{A matrix of VIPs based on the null data sets, with each row corresponding to a permutation (null data set) 
+#' and each column corresponding to a predictor.}
+#' \item{within.type.vip.imp.cols}{The vector of column indices of the predictors selected by the approach using within-type VIP 
+#' as the variable importance score.}
+#' \item{within.type.vip.imp.names}{The vector of column names of the predictors selected by the approach using within-type VIP 
+#' as the variable importance score.}
+#' \item{avg.within.type.vip}{The vector (length=\code{ncol(x.train)}) of the averaged within-type VIPs based on the original data 
+#' set; \code{avg.within.type.vip=colMeans(avg.within.type.vip.mtx)}.}
+#' \item{avg.within.type.vip.mtx}{A matrix of within-type VIPs based on the original data set, with each row corresponding to a 
+#' repetition and each column corresponding to a predictor.}
+#' \item{permute.within.type.vips}{A matrix of within VIPs based on the null data sets, with each row corresponding to a permutation 
+#' (null data set) and each column corresponding to a predictor.}
+#' \item{varcounts}{A list of \code{nreps+npermute} elements; Each element is a \code{ndpost} by \code{ncol(x.train)} matrix with 
+#' each row corresponding to a draw of the ensemble and each column corresponding to a predictor; The \eqn{(i,j)}-th element of
+#' the matrix is the number of times that the \eqn{j}-th predictor is used as a split variable in the \eqn{i}-th posterior sample;
+#' The first \code{nreps} elements correspond to \code{nreps} repetitions and the latter \code{npermute} elements correspond to 
+#' \code{npermute} permutations.}
+#' \item{mi.imp.cols}{The vector of column indices of the predictors selected by the approach using MI as the variable importance
+#' score.}
+#' \item{mi.imp.names}{The vector of column names of the predictors selected by the approach using MI as the variable importance
+#' score.}
+#' \item{median.mi}{The vector (length=\code{ncol(x.train)}) of the median MIs based on the original data set; 
+#' \code{median.mi=colMeans(median.mi.mtx)}.}
+#' \item{median.mi.mtx}{A matrix of MIs based on the original data set, with each row corresponding to a repetition and each column
+#' corresponding to a predictor.}
+#' \item{permute.mis}{A matrix of MIs based on the null data sets, with each row corresponding to a permutation (null data set) 
+#' and each column corresponding to a predictor.}
+#' \item{true.idx}{A vector of indices of the true relevant predictors; only returned if \code{true.idx} is provided as inputs.}
+#' \item{vip.precision}{The precision score for the approach using VIP as the variable importance score; only returned if 
+#' \code{true.idx} is provided.}
+#' \item{vip.recall}{The recall score for the approach using VIP as the variable importance score; only returned if \code{true.idx} 
+#' is provided.}
+#' \item{vip.f1}{The F1 score for the approach using VIP as the variable importance score; only returned if \code{true.idx} is 
+#' provided.}
+#' \item{wt.vip.precision}{The precision score for the approach using within-VIP as the variable importance score; only returned when
+#' the predictors are of the same type and \code{true.idx} is provided.}
+#' \item{wt.vip.recall}{The recall score for the approach using within-VIP as the variable importance score; only returned when
+#' the predictors are of the same type and \code{true.idx} is provided.}
+#' \item{wt.vip.f1}{The F1 score for the approach using within-VIP as the variable importance score; only returned when
+#' the predictors are of the same type and \code{true.idx} is provided.}
+#' \item{mi.precision}{The precision score for the approach using MI as the variable importance score; only returned if \code{true.idx} 
+#' is provided.}
+#' \item{mi.recall}{The recall score for the approach using MI as the variable importance score; only returned if \code{true.idx} 
+#' is provided.}
+#' \item{mi.f1}{The F1 score for the approach using MI as the variable importance score; only returned if \code{true.idx} 
+#' is provided.}
+#' 
+#' @author Chuji Luo: \email{cjluo@ufl.edu} and Michael J. Daniels: \email{daniels@ufl.edu}.
+#' @references 
+#' Bleich, Justin et al. (2014).
+#'   "Variable selection for BART: an application to gene regulation."
+#'   \emph{Ann. Appl. Stat.} 8.3, pp 1750--1781.
+#' 
+#' Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 
+#'   "BART: Bayesian additive regression trees."
+#'    \emph{Ann. Appl. Stat.} \strong{4} 266--298.
+#' 
+#' Luo, C. and Daniels, M.J. (2021)
+#'   "Variable Selection Using Bayesian Additive Regression Trees."
+#'   \emph{arXiv preprint arXiv:2112.13998}.
+#'   
+#' Ročková V, Saha E (2019). 
+#'   “On theory for BART.” 
+#'   \emph{In The 22nd International Conference on Artificial Intelligence and Statistics} (pp. 2839–2848). PMLR.
+#' @seealso 
+#' \code{\link{mc.permute.vs}}, \code{\link{medianInclusion.vs}}, \code{\link{mc.backward.vs}} and \code{\link{abc.vs}}.
+#' @examples 
+#' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
+#' set.seed(123)
+#' data = mixone(500, 50, 1, F)
+#' ## test permute.vs() function
+#' res = permute.vs(data$X, data$Y, probit=F, npermute=100, nreps=10, alpha=0.05, true.idx=c(1, 2, 26:28), 
+#' plot=T, ntree=20L, ndpost=1000, nskip=1000, keepevery=1L, verbose=FALSE)
 permute.vs = function(x.train, 
                       y.train, 
                       probit=F, 
