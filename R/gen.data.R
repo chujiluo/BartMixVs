@@ -26,7 +26,7 @@
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #' @examples
-#' friedman(200, 10, 1, F)
+#' friedman(200, 10, 1, FALSE)
 friedman = function(n, p, sigma, binary) {
   
   X = matrix(runif(n * p), nrow = n, ncol = p)
@@ -79,7 +79,7 @@ friedman = function(n, p, sigma, binary) {
 #'   "Reinforcement learning trees." 
 #'   \emph{J. Amer. Statist. Assoc.} \strong{110} 1770--1784.
 #' @examples
-#' checkerboard(200, 10, 1, F)
+#' checkerboard(200, 10, 1, FALSE)
 checkerboard = function(n, p, sigma, binary) {
   
   cov_mtx = matrix(NA, nrow = p, ncol = p)
@@ -137,7 +137,7 @@ checkerboard = function(n, p, sigma, binary) {
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #' @examples
-#' mixone(200, 10, 1, F)
+#' mixone(200, 10, 1, FALSE)
 mixone = function(n, p, sigma, binary) {
   k = ceiling(p / 2)
   X = matrix(NA, nrow = n, ncol = p)
@@ -193,7 +193,7 @@ mixone = function(n, p, sigma, binary) {
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #' @examples
-#' mixtwo(200, 1, F)
+#' mixtwo(200, 1, FALSE)
 mixtwo = function(n, sigma, binary) {
   X = matrix(NA, nrow = n, ncol = 84)
   X[, 1:20] = matrix(rbinom(n*20, size = 1, prob = 0.2), nrow = n, ncol = 20)

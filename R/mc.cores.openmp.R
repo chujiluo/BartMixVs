@@ -1,10 +1,11 @@
 #' Detecting OpenMP
 #' 
-#' This function is inherited from the CRAN R package \strong{BART} and was designed for OpenMP. For example,
-#' the \code{pwbart} function can use OpenMP or the \strong{parallel} R package for multi-threading. On UNIX/Unix-like
-#' systems, OpenMP, if available, is discovered at install time. However, we know of no GPL licensed code available to
-#' detect OpenMP on Windows (for Artistic licensed OpenMP detection code on Windows, see the Bioconductor R package 
-#' \strong{rGADEM}). To determine whether OpenMP is available at run time, we provide the function documented here.
+#' This function is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
+#' and Rodney Sparapani}) and was designed for OpenMP. For example, the \code{pwbart} function can use OpenMP or the 
+#' \strong{parallel} R package for multi-threading. On UNIX/Unix-like systems, OpenMP, if available, is discovered at 
+#' install time. However, we know of no GPL licensed code available to detect OpenMP on Windows (for Artistic licensed 
+#' OpenMP detection code on Windows, see the Bioconductor R package \strong{rGADEM}). To determine whether OpenMP 
+#' is available at run time, we provide the function documented here.
 #' 
 #' @return This function returns \eqn{0} when OpenMP is not available; otherwise, an integer greater than \eqn{0} is 
 #' returned when OpenMP is available (\eqn{1} is returned unless you are running in a multi-threaded process)

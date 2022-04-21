@@ -7,7 +7,8 @@
 #' For a binary response \eqn{y}, probit BART models \eqn{y} and \eqn{x} using \deqn{P(Y=1|x)=\Phi[f(x)],}
 #' where \eqn{\Phi} is the CDF of the standard normal distribution and \eqn{f} is a sum of Bayesian regression 
 #' trees function.\cr
-#' The function \code{pwbart()} is inherited from the CRAN R package \strong{BART}.
+#' The function \code{pwbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
+#' and Rodney Sparapani}).
 #' 
 #' @param x.test A matrix or a data frame of predictors values for prediction with each row corresponding to an observation 
 #' and each column corresponding to a predictor.
@@ -53,11 +54,11 @@
 #' @examples  
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, F)
+#' data = mixone(500, 50, 1, FALSE)
 #' ## run wbart() function
 #' res = wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
 #' ## test pwbart() function
-#' x.test = mixone(5, 50, 1, F)$X
+#' x.test = mixone(5, 50, 1, FALSE)$X
 #' pred = pwbart(x.test, res$treedraws, res$rm.const, mu=mean(data$Y))
 pwbart = function(x.test,		         #x matrix to predict at
                   treedraws,		      #$treedraws from wbart or pbart

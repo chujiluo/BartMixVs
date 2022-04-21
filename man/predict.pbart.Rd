@@ -27,17 +27,18 @@ BART is a Bayesian approach to nonparametric function estimation and inference u
 For a binary response \eqn{y}, probit BART models \eqn{y} and \eqn{x} using \deqn{P(Y=1|x)=\Phi[f(x)],}
 where \eqn{\Phi} is the CDF of the standard normal distribution and \eqn{f} is a sum of Bayesian regression 
 trees function.\cr
-This function uses S3 method for the class \code{pbart} and is inherited from the CRAN R package \strong{BART}.
+This function uses S3 method for the class \code{pbart} and is inherited from the CRAN R package \strong{BART}
+(\emph{Copyright (C) 2017 Robert McCulloch and Rodney Sparapani}).
 }
 \examples{
  
 ## simulate data (Scenario B.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, T)
+data = mixone(500, 50, 1, TRUE)
 ## run pbart() function
 res = pbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
 ## test predict.pbart() function
-newdata = mixone(5, 50, 1, T)$X
+newdata = mixone(5, 50, 1, TRUE)$X
 pred = predict(res, newdata)
 }
 \references{

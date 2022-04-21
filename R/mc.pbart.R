@@ -4,8 +4,8 @@
 #' For a binary response \eqn{y} and a \eqn{p-}dimensional vector of predictors \eqn{x = (x_1, ..., x_p)'}, 
 #' probit BART models \eqn{y} and \eqn{x} using \deqn{P(Y=1|x) = \Phi[f(x)],}
 #' where \eqn{\Phi} is the CDF of the standard normal distribution and \eqn{f} is a sum of Bayesian regression trees function.\cr
-#' The function \code{mc.pbart()} is inherited from the CRAN R package \strong{BART} (specifically, \code{BART::mc.pbart()}) and 
-#' is a variant of the function \code{pbart()} with parallel computation.
+#' The function \code{mc.pbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
+#' and Rodney Sparapani}) and is a variant of the function \code{pbart()} with parallel computation.
 #' 
 #' This function is inherited from \code{BART::mc.pbart()} and is a variant of the function \code{pbart()} with parallel computation.
 #' While the original features of \code{BART::pbart()} are preserved, two modifications are made.\cr
@@ -136,7 +136,7 @@
 #' @examples  
 #' ## simulate data (Scenario B.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, T)
+#' data = mixone(500, 50, 1, TRUE)
 #' ## test mc.pbart() function
 #' res = mc.pbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500, mc.cores=2)
 mc.pbart = function(x.train, 

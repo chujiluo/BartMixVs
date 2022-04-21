@@ -45,15 +45,16 @@ predictor of \code{X} is a categorical predictor with \eqn{3} levels.}
 \description{
 The external BART functions (e.g. \code{wbart()}) operate on matrices in memory. Therefore, if the user submits a vector or 
 data frame, then this function converts it to a matrix. Also, it determines the number of cut points necessary for each column
-when asked to do so. This function is inherited from the CRAN package \strong{BART}.
+when asked to do so. This function is inherited from the CRAN package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
+and Rodney Sparapani}).
 }
 \examples{
  
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, F)
+data = mixone(500, 50, 1, FALSE)
 ## test bartModelMatrix() function
-res = bartModelMatrix(data$X, numcut=100, usequants=F, cont=F, rm.const=T)
+res = bartModelMatrix(data$X, numcut=100, usequants=FALSE, cont=FALSE, rm.const=TRUE)
 }
 \references{
 Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 

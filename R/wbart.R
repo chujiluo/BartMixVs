@@ -4,8 +4,8 @@
 #' For a continuous response \eqn{y} and a \eqn{p-}dimensional vector of predictors \eqn{x = (x_1, ..., x_p)'}, 
 #' BART models \eqn{y} and \eqn{x} using \deqn{y = f(x) + \epsilon,}
 #' where \eqn{f} is a sum of Bayesian regression trees function and \eqn{\epsilon ~ N(0, \sigma^2)}.\cr
-#' The function \code{wbart()} is inherited from the CRAN R package \strong{BART} and two modifications are made
-#' for the splitting probability and variable importance (see Details).
+#' The function \code{wbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
+#' and Rodney Sparapani}) and two modifications are made for the splitting probability and variable importance (see Details).
 #' 
 #' This function is inherited from \code{BART::wbart()}.
 #' While the original features of \code{BART::wbart()} are preserved, two modifications are made.\cr
@@ -144,7 +144,7 @@
 #' @examples  
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, F)
+#' data = mixone(500, 50, 1, FALSE)
 #' ## test wbart() function
 #' res = wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
 wbart = function(x.train, 

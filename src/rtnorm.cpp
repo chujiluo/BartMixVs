@@ -1,3 +1,12 @@
+/*
+ *  This file is copied from:
+ *  
+ *  BART: Bayesian Additive Regression Trees
+ *  Copyright (C) 2017 Robert McCulloch and Rodney Sparapani
+ *
+ *  and modified by:
+ *  Chuji Luo and Michael J. Daniels
+ */
 #include "rtnorm.h"
 
 RcppExport SEXP crtnorm(SEXP n, SEXP mean, SEXP tau, SEXP sd) {

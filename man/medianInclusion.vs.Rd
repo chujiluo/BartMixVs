@@ -148,10 +148,10 @@ If \code{plot=TRUE}, plots showing which predictors are selected are generated.
 \examples{
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, F)
+data = mixone(500, 50, 1, FALSE)
 ## test medianInclusion.vs() function
-res = medianInclusion.vs(data$X, data$Y, probit=FALSE, vip.selection=TRUE,  true.idx=c(1, 2, 26:28), plot=T, 
-ntree=20, ndpost=1000, nskip=1000, verbose=FALSE)
+res = medianInclusion.vs(data$X, data$Y, probit=FALSE, vip.selection=TRUE,  
+true.idx=c(1, 2, 26:28), plot=TRUE, ntree=20, ndpost=1000, nskip=1000, verbose=FALSE)
 }
 \references{
 Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 

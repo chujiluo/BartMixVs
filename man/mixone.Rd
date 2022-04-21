@@ -34,7 +34,7 @@ If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eq
 If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
 }
 \examples{
-mixone(200, 10, 1, F)
+mixone(200, 10, 1, FALSE)
 }
 \references{
 Luo, C. and Daniels, M. J. (2021)

@@ -130,10 +130,10 @@ If \code{true.idx} is provided, the precision, recall and F1 scores are returned
 \examples{
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 10, 1, F)
+data = mixone(500, 10, 1, FALSE)
 ## test mc.backward.vs() function
-res = mc.backward.vs(data$X, data$Y, split.ratio=0.8, probit=F, true.idx=c(1,2,6:8), ntree=50, 
-ndpost=1000, nskip=1000, verbose=FALSE, mc.cores = 2L)
+res = mc.backward.vs(data$X, data$Y, split.ratio=0.8, probit=FALSE, true.idx=c(1,2,6:8), ntree=50, 
+ndpost=1000, nskip=1000, verbose=FALSE, mc.cores = 2)
 }
 \references{
 Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 
