@@ -11,7 +11,7 @@
 #' While the original features of \code{BART::pbart()} are preserved, two modifications are made.\cr
 #' The first modification is to provide two types of split probability for BART. One split probability is proposed in
 #' Chipman et al. (2010) and defined as \deqn{p(d) = \gamma * (1+d)^{-\beta},} where \eqn{d} is the depth of the node,
-#' \eqn{\gamma \in (0,1)} and \eqn{\beta \in (0,\infty)}. The other split probability is proposed by Ročková and Saha (2019) 
+#' \eqn{\gamma \in (0,1)} and \eqn{\beta \in (0,\infty)}. The other split probability is proposed by Rockova and Saha (2019) 
 #' and defined as \deqn{p(d) = \gamma^d,} where \eqn{\gamma \in (1/n, 1/2)}. BART with the second split probability is proved
 #' to achieve the optimal posterior contraction.\cr
 #' The second modification is to provide five types of variable importance measures (\code{vip}, \code{within.type.vip},
@@ -55,7 +55,7 @@
 #' if \code{split.prob="exponential"}, the probability of splitting a node at depth \eqn{d} is \code{base}\eqn{^d}. 
 #' @param split.prob A string indicating what kind of splitting probability is used for the tree prior. If 
 #' \code{split.prob="polynomial"}, the splitting probability in Chipman et al. (2010) is used; 
-#' If \code{split.prob="exponential"}, the splitting probability in Ročková and Saha (2019) is used.
+#' If \code{split.prob="exponential"}, the splitting probability in Rockova and Saha (2019) is used.
 #' @param k The number of prior standard deviations that \eqn{E(Y|x) = f(x)} is away from \eqn{+/-.5}. The response 
 #' (\code{y.train}) is internally scaled to the range from \eqn{-.5} to \eqn{.5}. The bigger \code{k} is, the more conservative 
 #' the fitting will be.
@@ -122,11 +122,11 @@
 #'   "Bayesian regression trees for high-dimensional prediction and variable selection." 
 #'   \emph{J. Amer. Statist. Assoc.} \strong{113} 626--636.
 #' 
-#' Luo, C. and Daniels, M.J. (2021)
+#' Luo, C. and Daniels, M. J. (2021)
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #'   
-#' Ročková V, Saha E (2019). 
+#' Rockova V, Saha E (2019). 
 #'   “On theory for BART.” 
 #'   \emph{In The 22nd International Conference on Artificial Intelligence and Statistics} (pp. 2839–2848). PMLR.
 #'   

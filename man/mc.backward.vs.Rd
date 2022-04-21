@@ -75,7 +75,7 @@ if \code{split.prob="exponential"}, the probability of splitting a node at depth
 
 \item{split.prob}{A string indicating what kind of splitting probability is used for the tree prior. If 
 \code{split.prob="polynomial"}, the splitting probability in Chipman et al. (2010) is used; 
-If \code{split.prob="exponential"}, the splitting probability in Ročková and Saha (2019) is used.}
+If \code{split.prob="exponential"}, the splitting probability in Rockova and Saha (2019) is used.}
 
 \item{ntree}{The number of trees in the ensemble.}
 
@@ -140,11 +140,11 @@ Chipman, H. A., George, E. I. and McCulloch, R. E. (2010).
   "BART: Bayesian additive regression trees."
    \emph{Ann. Appl. Stat.} \strong{4} 266--298.
 
-Luo, C. and Daniels, M.J. (2021)
+Luo, C. and Daniels, M. J. (2021)
   "Variable Selection Using Bayesian Additive Regression Trees."
   \emph{arXiv preprint arXiv:2112.13998}.
   
-Ročková V, Saha E (2019). 
+Rockova V, Saha E (2019). 
   “On theory for BART.” 
   \emph{In The 22nd International Conference on Artificial Intelligence and Statistics} (pp. 2839–2848). PMLR.
   

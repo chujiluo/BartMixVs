@@ -26,11 +26,11 @@
 #'   "Bayesian regression trees for high-dimensional prediction and variable selection." 
 #'   \emph{J. Amer. Statist. Assoc.} \strong{113} 626--636.
 #' 
-#' Luo, C. and Daniels, M.J. (2021)
+#' Luo, C. and Daniels, M. J. (2021)
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #'   
-#' Ročková V, Saha E (2019). 
+#' Rockova V, Saha E (2019). 
 #'   “On theory for BART.” 
 #'   \emph{In The 22nd International Conference on Artificial Intelligence and Statistics} (pp. 2839–2848). PMLR.
 #'   

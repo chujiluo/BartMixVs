@@ -95,7 +95,7 @@ if \code{split.prob="exponential"}, the probability of splitting a node at depth
 
 \item{split.prob}{A string indicating what kind of splitting probability is used for the tree prior. If 
 \code{split.prob="polynomial"}, the splitting probability in Chipman et al. (2010) is used; 
-If \code{split.prob="exponential"}, the splitting probability in Ročková and Saha (2019) is used.}
+If \code{split.prob="exponential"}, the splitting probability in Rockova and Saha (2019) is used.}
 
 \item{ntree}{The number of trees in the ensemble.}
 
@@ -140,9 +140,9 @@ posterior samples; \code{top.models=actual.models[idx, ]}.}
 \item{f1}{The F1 score for the ABC Bayesian forest; only returned when \code{true.idx} is provided.}
 }
 \description{
-This function implements the variable selection approach proposed in Liu, Ročková and Wang (2021) with parallel computation.
-Ročková and Pas (2020) introduce a spike-and-forest prior which wraps the BART prior with a spike-and-slab prior on the model 
-space. Due to intractable marginal likelihood, Liu, Ročková and Wang (2021) propose an approximate Bayesian computation (ABC) 
+This function implements the variable selection approach proposed in Liu, Rockova and Wang (2021) with parallel computation.
+Rockova and Pas (2020) introduce a spike-and-forest prior which wraps the BART prior with a spike-and-slab prior on the model 
+space. Due to intractable marginal likelihood, Liu, Rockova and Wang (2021) propose an approximate Bayesian computation (ABC) 
 sampling method based on data-splitting to help sample from the model space with higher ABC acceptance rate.\cr
 Unlike the function \code{abc.vs()} which sequentially evaluates ABC models, this function evaluates the ABC models in parallel.
 }
@@ -154,7 +154,7 @@ based on a posterior sample from the fitted BART model. Only those subsets that 
 for selection. ABC Bayesian forest selects predictors based on their marginal posterior variable inclusion probabilities (MPVIPs)
 which are estimated by computing the proportion of ABC accepted BART posterior samples that use the predictor at least one time.
 Given the MPVIPs, predictors with MPVIP exceeding a pre-specified threshold are selected.\cr
-See Liu, Ročková and Wang (2021) or Section 2.2.4 in Luo and Daniels (2021) for details.
+See Liu, Rockova and Wang (2021) or Section 2.2.4 in Luo and Daniels (2021) for details.
 }
 \examples{
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
@@ -162,7 +162,7 @@ set.seed(123)
 data = mixone(500, 50, 1, FALSE)
 ## test mc.abc.vs() function
 res = mc.abc.vs(data$X, data$Y, nabc=1000, tolerance=0.1, threshold=0.25, beta.params=c(1.0, 1.0), 
-split.ratio=0.5, probit=FALSE, true.idx=c(1,2,26:28), ntree=20, ndpost=1, nskip=200, mc.cores = 4)
+split.ratio=0.5, probit=FALSE, true.idx=c(1,2,26:28), ntree=20, ndpost=1, nskip=200, mc.cores=2)
 }
 \references{
 Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 
@@ -173,15 +173,15 @@ Linero, A. R. (2018).
   "Bayesian regression trees for high-dimensional prediction and variable selection." 
   \emph{J. Amer. Statist. Assoc.} \strong{113} 626--636.
   
-Liu, Yi, Veronika Ročková, and Yuexi Wang (2021).
+Liu, Yi, Veronika Rockova, and Yuexi Wang (2021).
   "Variable selection with ABC Bayesian forests."
   \emph{J. R. Stat. Soc. Ser. B. Stat. Methodol.} 83.3, pp. 453--481.
   
-Luo, C. and Daniels, M.J. (2021)
+Luo, C. and Daniels, M. J. (2021)
   "Variable Selection Using Bayesian Additive Regression Trees."
   \emph{arXiv preprint arXiv:2112.13998}.
   
-Ročková Veronika and Stéphanie van der Pas (2020).
+Rockova Veronika and Stephanie van der Pas (2020).
   "Posterior concentration for Bayesian regression trees and forests."
   \emph{Ann. Statist.} 48.4, pp. 2108--2131.
 }

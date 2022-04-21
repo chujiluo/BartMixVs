@@ -1,8 +1,8 @@
 #' Variable selection with ABC Bayesian forest
 #' 
-#' This function implements the variable selection approach proposed in Liu, Ročková and Wang (2021). Ročková and Pas (2020)
+#' This function implements the variable selection approach proposed in Liu, Rockova and Wang (2021). Rockova and Pas (2020)
 #' introduce a spike-and-forest prior which wraps the BART prior with a spike-and-slab prior on the model space. Due to intractable
-#' marginal likelihood, Liu, Ročková and Wang (2021) propose an approximate Bayesian computation (ABC) sampling method based on 
+#' marginal likelihood, Liu, Rockova and Wang (2021) propose an approximate Bayesian computation (ABC) sampling method based on 
 #' data-splitting to help sample from the model space with higher ABC acceptance rate.
 #' 
 #' At each iteration of the algorithm, the data set is randomly split into a training set and a testing set according to a certain
@@ -12,7 +12,7 @@
 #' for selection. ABC Bayesian forest selects predictors based on their marginal posterior variable inclusion probabilities (MPVIPs)
 #' which are estimated by computing the proportion of ABC accepted BART posterior samples that use the predictor at least one time.
 #' Given the MPVIPs, predictors with MPVIP exceeding a pre-specified threshold are selected.\cr
-#' See Liu, Ročková and Wang (2021) or Section 2.2.4 in Luo and Daniels (2021) for details.
+#' See Liu, Rockova and Wang (2021) or Section 2.2.4 in Luo and Daniels (2021) for details.
 #' 
 #' @param x A matrix or a data frame of predictors values with each row corresponding to an observation and each column 
 #' corresponding to a predictor. If a predictor is a factor with \eqn{q} levels in a data frame, it is replaced with \eqn{q} dummy 
@@ -60,7 +60,7 @@
 #' if \code{split.prob="exponential"}, the probability of splitting a node at depth \eqn{d} is \code{base}\eqn{^d}. 
 #' @param split.prob A string indicating what kind of splitting probability is used for the tree prior. If 
 #' \code{split.prob="polynomial"}, the splitting probability in Chipman et al. (2010) is used; 
-#' If \code{split.prob="exponential"}, the splitting probability in Ročková and Saha (2019) is used.
+#' If \code{split.prob="exponential"}, the splitting probability in Rockova and Saha (2019) is used.
 #' @param ntree The number of trees in the ensemble.
 #' @param ndpost The number of posterior samples returned.
 #' @param nskip The number of posterior samples burned in.
@@ -103,15 +103,15 @@
 #'   "Bayesian regression trees for high-dimensional prediction and variable selection." 
 #'   \emph{J. Amer. Statist. Assoc.} \strong{113} 626--636.
 #'   
-#' Liu, Yi, Veronika Ročková, and Yuexi Wang (2021).
+#' Liu, Yi, Veronika Rockova, and Yuexi Wang (2021).
 #'   "Variable selection with ABC Bayesian forests."
 #'   \emph{J. R. Stat. Soc. Ser. B. Stat. Methodol.} 83.3, pp. 453--481.
 #'   
-#' Luo, C. and Daniels, M.J. (2021)
+#' Luo, C. and Daniels, M. J. (2021)
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #'   
-#' Ročková Veronika and Stéphanie van der Pas (2020).
+#' Rockova Veronika and Stephanie van der Pas (2020).
 #'   "Posterior concentration for Bayesian regression trees and forests."
 #'   \emph{Ann. Statist.} 48.4, pp. 2108--2131.
 #' @seealso 
