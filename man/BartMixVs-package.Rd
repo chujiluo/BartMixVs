@@ -30,7 +30,9 @@ ABC Bayesian forests. J. R. Stat. Soc. Ser. B. Stat. Methodol. 83
   SPARAPANI, R., SPANBAUER, C. and MCCULLOCH, R. (2021).
 Nonparametric machine learning and efficient computation with bayesian additive regression trees: the BART R package. J. Stat. Softw. 97 1–66.
 }
-\keyword{BART, Variable Selection}
+\keyword{BART}
+\concept{Variable Selection}
+\concept{Non-Parametric Regression}
 \seealso{
   Optional links to other man pages
 }

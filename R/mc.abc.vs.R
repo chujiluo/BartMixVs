@@ -114,6 +114,7 @@
 #' @seealso 
 #' \code{\link{abc.vs}}.
 #' @examples 
+#' \dontrun{
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
 #' data = mixone(500, 50, 1, FALSE)
@@ -123,6 +124,7 @@
 #'   res = mc.abc.vs(data$X, data$Y, nabc=1000, tolerance=0.1, threshold=0.25, 
 #'   beta.params=c(1.0, 1.0), split.ratio=0.5, probit=FALSE, true.idx=c(1,2,26:28), 
 #'   ntree=20, ndpost=1, nskip=200, mc.cores=2)
+#' }
 #' }
 mc.abc.vs = function(x, 
                      y, 

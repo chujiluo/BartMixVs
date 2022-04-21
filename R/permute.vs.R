@@ -136,12 +136,14 @@
 #' @seealso 
 #' \code{\link{mc.permute.vs}}, \code{\link{medianInclusion.vs}}, \code{\link{mc.backward.vs}} and \code{\link{abc.vs}}.
 #' @examples 
+#' \dontrun{
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
 #' data = mixone(500, 50, 1, FALSE)
 #' ## test permute.vs() function
 #' res = permute.vs(data$X, data$Y, probit=FALSE, npermute=100, nreps=10, alpha=0.05, 
 #' true.idx=c(1,2,26:28), plot=TRUE, ntree=20, ndpost=1000, nskip=1000, verbose=FALSE)
+#' }
 permute.vs = function(x.train, 
                       y.train, 
                       probit=F, 
