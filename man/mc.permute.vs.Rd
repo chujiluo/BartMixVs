@@ -181,9 +181,12 @@ are generated.
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
 data = mixone(500, 50, 1, FALSE)
+## parallel::mcparallel/mccollect do not exist on windows
+if(.Platform$OS.type=='unix') {
 ## test mc.permute.vs() function
-res = mc.permute.vs(data$X, data$Y, probit=FALSE, npermute=100, nreps=10, alpha=0.05, 
-true.idx=c(1, 2, 26:28), plot=TRUE, ntree=20, ndpost=1000, nskip=1000, mc.cores=2)
+  res = mc.permute.vs(data$X, data$Y, probit=FALSE, npermute=100, nreps=10, alpha=0.05, 
+  true.idx=c(1, 2, 26:28), plot=TRUE, ntree=20, ndpost=1000, nskip=1000, mc.cores=2)
+}
 }
 \references{
 Bleich, Justin et al. (2014).

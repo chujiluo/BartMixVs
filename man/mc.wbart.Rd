@@ -205,8 +205,11 @@ The second modification is to provide five types of variable importance measures
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
 data = mixone(500, 50, 1, FALSE)
+## parallel::mcparallel/mccollect do not exist on windows
+if(.Platform$OS.type=='unix') {
 ## test mc.wbart() function
-res = mc.wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500, mc.cores=2)
+  res = mc.wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500, mc.cores=2)
+}
 }
 \references{
 Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 

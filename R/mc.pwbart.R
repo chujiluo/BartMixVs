@@ -57,9 +57,13 @@
 #' data = mixone(500, 50, 1, FALSE)
 #' ## run wbart() function
 #' res = wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
+#' ## parallel::mcparallel/mccollect do not exist on windows
+#' if(.Platform$OS.type=='unix') {
 #' ## test pwbart() function
-#' x.test = mixone(5, 50, 1, FALSE)$X
-#' pred = mc.pwbart(x.test, res$treedraws, res$rm.const, mu=mean(data$Y), mc.cores=2)
+#'   x.test = mixone(5, 50, 1, FALSE)$X
+#'   pred = mc.pwbart(x.test, res$treedraws, res$rm.const, mu=mean(data$Y), mc.cores=2)
+#' }
+
 mc.pwbart = function(x.test,		#x matrix to predict at
                      treedraws,		#$treedraws from wbart
                      rm.const,      #$rm.const from wbart or pbart

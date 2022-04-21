@@ -137,8 +137,12 @@
 #' ## simulate data (Scenario B.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
 #' data = mixone(500, 50, 1, TRUE)
+#' ## parallel::mcparallel/mccollect do not exist on windows
+#' if(.Platform$OS.type=='unix') {
 #' ## test mc.pbart() function
-#' res = mc.pbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500, mc.cores=2)
+#'   res = mc.pbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500, mc.cores=2)
+#' }
+
 mc.pbart = function(x.train, 
                     y.train, 
                     x.test = matrix(0.0, 0L, 0L),

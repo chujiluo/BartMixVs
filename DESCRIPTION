@@ -6,7 +6,7 @@ Date: 2022-04-20
 Author: Chuji Luo [aut, cre]
   Michael J. Daniels [aut]
 Maintainer: Chuji Luo <cjluo@ufl.edu>
-Description: Bayesian additive regression trees (BART) provides flexible non-parametric modeling of mixed-type predictors for continuous and binary responses. This package is built upon CRAN R package BART, version 2.7 (<https://github.com/cran/BART>). It implements the three proposed variable selection approaches in the paper: Luo, C and Daniels, M. J. (2021), "Variable Selection Using Bayesian Additive Regression Trees." arXiv:2112.13998, and other three existing BART-based variable selection approaches.
+Description: Bayesian additive regression trees (BART) provides flexible non-parametric modeling of mixed-type predictors for continuous and binary responses. This package is built upon CRAN R package BART, version 2.7 (<https://github.com/cran/BART>). It implements the three proposed variable selection approaches in the paper: Luo, C and Daniels, M. J. (2021), "Variable Selection Using Bayesian Additive Regression Trees." <arXiv:2112.13998>, and other three existing BART-based variable selection approaches.
 License: GPL (>= 2)  
 Depends: R (>= 2.10), nlme, nnet
 Imports: Rcpp (>= 1.0.6), loo, mvtnorm
