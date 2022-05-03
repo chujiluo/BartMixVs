@@ -13,7 +13,8 @@ mixone(n, p, sigma, binary)
 
 \item{sigma}{The error variance.}
 
-\item{binary}{A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} indicates that continuous responses are generated.}
+\item{binary}{A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} 
+indicates that continuous responses are generated.}
 }
 \value{
 Return a list with the following components.
@@ -31,10 +32,11 @@ Sample the predictors \eqn{x_1, ..., x_{ceiling(p/2)}} from Bernoulli(0.5) indep
 \eqn{x_{ceiling(p/2)+1}, ..., x_p} from Uniform(0, 1) independently.
 If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where 
 \deqn{f0(x) = 10sin(\pi x_{ceiling(p/2)+1}*x_{ceiling(p/2)+2}) + 20(x_{ceiling(p/2)+3}-0.5)^2 + 10x_1 + 5x_2.}
-If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
+If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and
+\eqn{\Phi} is the cumulative density function of the standard normal distribution.
 }
 \examples{
-mixone(200, 10, 1, FALSE)
+mixone(100, 10, 1, FALSE)
 }
 \references{
 Luo, C. and Daniels, M. J. (2021)

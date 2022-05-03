@@ -186,8 +186,8 @@ BART is a Bayesian approach to nonparametric function estimation and inference u
 For a continuous response \eqn{y} and a \eqn{p-}dimensional vector of predictors \eqn{x = (x_1, ..., x_p)'}, 
 BART models \eqn{y} and \eqn{x} using \deqn{y = f(x) + \epsilon,}
 where \eqn{f} is a sum of Bayesian regression trees function and \eqn{\epsilon ~ N(0, \sigma^2)}.\cr
-The function \code{mc.wbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
-and Rodney Sparapani}) and is a variant of the function \code{wbart()} with parallel computation.
+The function \code{mc.wbart()} is inherited from the CRAN R package 'BART' and is a variant of the function 
+\code{wbart()} with parallel computation.
 }
 \details{
 This function is inherited from \code{BART::mc.wbart()} and is a variant of the function \code{wbart()} 
@@ -204,11 +204,11 @@ The second modification is to provide five types of variable importance measures
 \examples{
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, FALSE)
+data = mixone(100, 10, 1, FALSE)
 ## parallel::mcparallel/mccollect do not exist on windows
 if(.Platform$OS.type=='unix') {
 ## test mc.wbart() function
-  res = mc.wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500, mc.cores=2)
+  res = mc.wbart(data$X, data$Y, ntree=10, nskip=100, ndpost=100, mc.cores=2)
 }
 }
 \references{

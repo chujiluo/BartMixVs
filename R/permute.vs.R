@@ -135,24 +135,22 @@
 #'   \emph{In The 22nd International Conference on Artificial Intelligence and Statistics} (pp. 2839–2848). PMLR.
 #' @seealso 
 #' \code{\link{mc.permute.vs}}, \code{\link{medianInclusion.vs}}, \code{\link{mc.backward.vs}} and \code{\link{abc.vs}}.
-#' @examples 
-#' \dontrun{
+#' @examples
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, FALSE)
+#' data = mixone(100, 10, 1, FALSE)
 #' ## test permute.vs() function
 #' res = permute.vs(data$X, data$Y, probit=FALSE, npermute=100, nreps=10, alpha=0.05, 
-#' true.idx=c(1,2,26:28), plot=TRUE, ntree=20, ndpost=1000, nskip=1000, verbose=FALSE)
-#' }
+#' true.idx=c(1,2,6:8), plot=FALSE, ntree=10, ndpost=100, nskip=100)
 permute.vs = function(x.train, 
                       y.train, 
-                      probit=F, 
+                      probit=FALSE, 
                       npermute=100L,                      ## number of permutations 
                       nreps=10L,                          ## number of replicates 
                       alpha=0.05,                         ## local threshold
                       true.idx=NULL,
-                      plot=T, 
-                      n.var.plot = Inf,
+                      plot=TRUE, 
+                      n.var.plot=Inf,
                       xinfo=matrix(0.0,0,0), 
                       numcut=100L,
                       usequants=FALSE, 
@@ -183,7 +181,7 @@ permute.vs = function(x.train,
   
   #-----------------------------------------------------------
   # get avg/median variable importance from the original data
-  cat("original data set...")
+  if(verbose) cat("original data set...")
   
   avg.vip.mtx = matrix(NA, nrow = nreps, ncol = ncol(x.train))
   median.mi.mtx = matrix(NA, nrow = nreps, ncol = ncol(x.train))
@@ -226,12 +224,12 @@ permute.vs = function(x.train,
     avg.within.type.vip = sort(avg.within.type.vip, decreasing = T)
   }
 
-  cat("complete! \n")
+  if(verbose) cat("complete! \n")
   
   
   #-----------------------------------------------------------
   # build null permutation
-  cat("null data sets...")
+  if(verbose) cat("null data sets...")
   
   ## set up permute matrix
   permute.vips = matrix(NA, nrow = npermute, ncol = ncol(x.train))
@@ -264,7 +262,7 @@ permute.vs = function(x.train,
       permute.within.type.vips[cnt, ] = bart$within.type.vip
   }
   
-  cat("complete! \n")
+  if(verbose) cat("complete! \n")
   
   
   #-----------------------------------------------------------
@@ -416,7 +414,7 @@ permute.vs = function(x.train,
   #------------------------------
   # timer ends
   end = Sys.time()
-  cat("Elapsed", end-start, '\n')
+  if(verbose) cat("Elapsed", end-start, '\n')
   
   return(res)
 }

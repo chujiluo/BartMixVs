@@ -117,14 +117,12 @@
 #' @seealso 
 #' \code{\link{permute.vs}}, \code{\link{medianInclusion.vs}} and \code{\link{mc.backward.vs}}.
 #' @examples 
-#' \dontrun{
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, FALSE)
+#' data = mixone(100, 10, 1, FALSE)
 #' ## test abc.vs() function
-#' res = abc.vs(data$X, data$Y, nabc=1000, tolerance=0.1, threshold=0.25, beta.params=c(1.0, 1.0), 
-#' split.ratio=0.5, probit=FALSE, true.idx=c(1,2,26:28), ntree=10, ndpost=1, nskip=200, analysis=TRUE)
-#' }
+#' res = abc.vs(data$X, data$Y, nabc=100, tolerance=0.1, threshold=0.25, beta.params=c(1.0, 1.0), 
+#' split.ratio=0.5, probit=FALSE, true.idx=c(1,2,6:8), ntree=10, ndpost=1, nskip=200, analysis=TRUE)
 abc.vs = function(x, 
                   y, 
                   nabc=1000, 
@@ -133,10 +131,10 @@ abc.vs = function(x,
                   beta.params=c(1.0, 1.0), 
                   beta.theta=NA,
                   split.ratio=0.5, 
-                  probit=F, 
+                  probit=FALSE, 
                   true.idx=NULL,
                   analysis=TRUE,
-                  sparse = FALSE,
+                  sparse=FALSE,
                   xinfo=matrix(0.0,0,0), 
                   numcut=100L,
                   usequants=FALSE, 

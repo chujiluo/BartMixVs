@@ -1,9 +1,28 @@
+## This file is modified from the source file of the function BART::bartModelMatrix().
+## See below for the copyright of the CRAN R package 'BART'.
+
+## BART: Bayesian Additive Regression Trees
+## Copyright (C) 2018 Robert McCulloch and Rodney Sparapani
+
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, a copy is available at
+## https://www.R-project.org/Licenses/GPL-2
+
 #' Create a matrix out of a vector or data frame
 #' 
 #' The external BART functions (e.g. \code{wbart()}) operate on matrices in memory. Therefore, if the user submits a vector or 
 #' data frame, then this function converts it to a matrix. Also, it determines the number of cut points necessary for each column
-#' when asked to do so. This function is inherited from the CRAN package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
-#' and Rodney Sparapani}).
+#' when asked to do so. This function is inherited from the CRAN package 'BART'.
 #' 
 #' @param X A vector or data frame where the matrix is created.
 #' @param numcut The maximum number of cut points to consider. If \code{numcut=0}, then return a matrix; otherwise, return a list
@@ -51,7 +70,7 @@
 #' @examples  
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, FALSE)
+#' data = mixone(100, 10, 1, FALSE)
 #' ## test bartModelMatrix() function
 #' res = bartModelMatrix(data$X, numcut=100, usequants=FALSE, cont=FALSE, rm.const=TRUE)
 bartModelMatrix = function(X, 

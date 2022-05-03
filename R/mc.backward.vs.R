@@ -234,21 +234,19 @@ multiple.models.evaluation = function(x.train,
 #' @seealso 
 #' \code{\link{permute.vs}}, \code{\link{medianInclusion.vs}} and \code{\link{abc.vs}}.
 #' @examples 
-#' \dontrun{
-#' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
+#' ## simulate data (Scenario C.C.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 10, 1, FALSE)
+#' data = friedman(100, 5, 1, FALSE)
 #' ## parallel::mcparallel/mccollect do not exist on windows
 #' if(.Platform$OS.type=='unix') {
 #' ## test mc.backward.vs() function
 #'   res = mc.backward.vs(data$X, data$Y, split.ratio=0.8, probit=FALSE, 
-#'   true.idx=c(1,2,6:8), ntree=50, ndpost=1000, nskip=1000, mc.cores=2)
-#' }
+#'   true.idx=c(1:5), ntree=10, ndpost=100, nskip=100, mc.cores=2)
 #' }
 mc.backward.vs = function(x, 
                           y, 
                           split.ratio=0.8,
-                          probit=F, 
+                          probit=FALSE, 
                           true.idx=NULL,
                           xinfo=matrix(0.0,0,0), 
                           numcut=100L,
@@ -265,9 +263,9 @@ mc.backward.vs = function(x,
                           keepevery=1L,
                           printevery=100L, 
                           verbose=FALSE,
-                          mc.cores = 2L, 
-                          nice = 19L, 
-                          seed = 99L) {
+                          mc.cores=2L, 
+                          nice=19L, 
+                          seed=99L) {
   
   #------------------------------
   # timer starts
@@ -331,7 +329,7 @@ mc.backward.vs = function(x,
   # backward in sequential, parallel within each iteration
   for (i in 1:(p-1)) {
     ## model[[i]]: winner model from last iteration
-    cat("iteration =", (i+1), "/")
+    if(verbose) cat("iteration =", (i+1), "/")
     
     num.models = length(models[[i]])
     reduced.models = matrix(NA, nrow = num.models, ncol = (num.models - 1))   # each row is a new model
@@ -401,7 +399,7 @@ mc.backward.vs = function(x,
     rm(reduced.results)
   }
   
-  cat("\n")
+  if(verbose) cat("\n")
   
   #------------------------------
   # pick the best model
@@ -448,7 +446,7 @@ mc.backward.vs = function(x,
   #------------------------------
   # timer
   end = Sys.time()
-  cat("Elapsed", end-start, '\n')
+  if(verbose) cat("Elapsed", end-start, '\n')
   
   return(res)
 }

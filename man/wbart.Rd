@@ -44,7 +44,7 @@ wbart(
   nkeeptreedraws = ndpost,
   printevery = 100L,
   transposed = FALSE,
-  verbose = TRUE
+  verbose = FALSE
 )
 }
 \arguments{
@@ -195,8 +195,8 @@ BART is a Bayesian approach to nonparametric function estimation and inference u
 For a continuous response \eqn{y} and a \eqn{p-}dimensional vector of predictors \eqn{x = (x_1, ..., x_p)'}, 
 BART models \eqn{y} and \eqn{x} using \deqn{y = f(x) + \epsilon,}
 where \eqn{f} is a sum of Bayesian regression trees function and \eqn{\epsilon ~ N(0, \sigma^2)}.\cr
-The function \code{wbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
-and Rodney Sparapani}) and two modifications are made for the splitting probability and variable importance (see Details).
+The function \code{wbart()} is inherited from the CRAN R package 'BART' and two modifications are made 
+for the splitting probability and variable importance (see Details).
 }
 \details{
 This function is inherited from \code{BART::wbart()}.
@@ -213,9 +213,9 @@ The second modification is to provide five types of variable importance measures
  
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, FALSE)
+data = mixone(100, 10, 1, FALSE)
 ## test wbart() function
-res = wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
+res = wbart(data$X, data$Y, ntree=10, nskip=100, ndpost=100)
 }
 \references{
 Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 

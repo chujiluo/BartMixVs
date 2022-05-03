@@ -1,11 +1,24 @@
 /*
- *  This file is copied from:
- *  
- *  BART: Bayesian Additive Regression Trees
- *  Copyright (C) 2017 Robert McCulloch and Rodney Sparapani
+ * This file is modified from a source file of the CRAN R package 
+ * 'BART': BART/src/cpwbart.cpp.
+ * See below for the copyright of the CRAN R package 'BART'.
+ * 
+ * BART: Bayesian Additive Regression Trees
+ * Copyright (C) 2018 Robert McCulloch and Rodney Sparapani
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  and modified by:
- *  Chuji Luo and Michael J. Daniels
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, a copy is available at
+ * https://www.R-project.org/Licenses/GPL-2
  */
 #include "tree.h"
 #include "treefuns.h"
@@ -21,15 +34,17 @@ void getpred(int beg, int end, size_t p, size_t m, size_t np, xinfo& xi, std::ve
 RcppExport SEXP cpwbart(
       SEXP _itrees,		//treedraws list from fbart
       SEXP _ix,			//x matrix to predict at
-      SEXP _itc			//thread count
+      SEXP _itc,			//thread count
+      SEXP _iverbose
 )
 {
-   Rprintf("*****In main of C++ for bart prediction\n");
+   bool verbose = Rcpp::as<bool>(_iverbose);
+   if(verbose) Rprintf("*****In main of C++ for bart prediction\n");
    
    //--------------------------------------------------
    //get threadcount
    int tc = Rcpp::as<int>(_itc);
-   cout << "tc (threadcount): " << tc << endl;
+   if(verbose) cout << "tc (threadcount): " << tc << endl;
    
    //--------------------------------------------------
    //process trees
@@ -41,15 +56,17 @@ RcppExport SEXP cpwbart(
    
    size_t nd,m,p;
    ttss >> nd >> m >> p;
-   cout << "number of bart draws: " << nd << endl;
-   cout << "number of trees in bart sum: " << m << endl;
-   cout << "number of x columns: " << p << endl;
+   if(verbose) {
+      cout << "number of bart draws: " << nd << endl;
+      cout << "number of trees in bart sum: " << m << endl;
+      cout << "number of x columns: " << p << endl;
+   }
    
    //--------------------------------------------------
    //process cutpoints (from trees)
    Rcpp::List  ixi(Rcpp::wrap(trees["cutpoints"]));
    size_t pp = ixi.size();
-   if(p!=pp) cout << "WARNING: p from trees and p from x don't agree\n";
+   if(verbose && (p!=pp)) cout << "WARNING: p from trees and p from x don't agree\n";
    xinfo xi;
    xi.resize(p);
    for(size_t i=0;i<p;i++) {
@@ -62,7 +79,7 @@ RcppExport SEXP cpwbart(
    //process x
    Rcpp::NumericMatrix xpred(_ix);
    size_t np = xpred.ncol();
-   cout << "from x,np,p: " << xpred.nrow() << ", " << xpred.ncol() << endl;
+   if(verbose) cout << "from x,np,p: " << xpred.nrow() << ", " << xpred.ncol() << endl;
    
    //--------------------------------------------------
    //read in trees
@@ -80,12 +97,15 @@ RcppExport SEXP cpwbart(
    double *px = &xpred(0,0);
    
    #ifndef _OPENMP
-   cout << "***using serial code\n";
+   if(verbose) cout << "***using serial code\n";
    getpred(0, nd-1, p, m, np,  xi,  tmat, px,  yhat);
    #else
-   if(tc==1) {cout << "***using serial code\n"; getpred(0, nd-1, p, m, np,  xi,  tmat, px,  yhat);}
+   if(tc==1) {
+      if(verbose) cout << "***using serial code\n"; 
+      getpred(0, nd-1, p, m, np,  xi,  tmat, px,  yhat);
+   }
    else {
-      cout << "***using parallel code\n";
+      if(verbose) cout << "***using parallel code\n";
       #pragma omp parallel num_threads(tc)
       local_getpred(nd,p,m,np,xi,tmat,px,yhat);
    }

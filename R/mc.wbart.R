@@ -1,11 +1,31 @@
+## This file is modified from the source file of the function BART::mc.wbart().
+## See below for the copyright of the CRAN R package 'BART'.
+
+## BART: Bayesian Additive Regression Trees
+## Copyright (C) 2018 Robert McCulloch and Rodney Sparapani
+
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, a copy is available at
+## https://www.R-project.org/Licenses/GPL-2
+
 #' BART for continuous responses with parallel computation
 #' 
 #' BART is a Bayesian approach to nonparametric function estimation and inference using a sum of trees.\cr
 #' For a continuous response \eqn{y} and a \eqn{p-}dimensional vector of predictors \eqn{x = (x_1, ..., x_p)'}, 
 #' BART models \eqn{y} and \eqn{x} using \deqn{y = f(x) + \epsilon,}
 #' where \eqn{f} is a sum of Bayesian regression trees function and \eqn{\epsilon ~ N(0, \sigma^2)}.\cr
-#' The function \code{mc.wbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
-#' and Rodney Sparapani}) and is a variant of the function \code{wbart()} with parallel computation.
+#' The function \code{mc.wbart()} is inherited from the CRAN R package 'BART' and is a variant of the function 
+#' \code{wbart()} with parallel computation.
 #' 
 #' This function is inherited from \code{BART::mc.wbart()} and is a variant of the function \code{wbart()} 
 #' with parallel computation.\cr
@@ -142,11 +162,11 @@
 #' @examples 
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, FALSE)
+#' data = mixone(100, 10, 1, FALSE)
 #' ## parallel::mcparallel/mccollect do not exist on windows
 #' if(.Platform$OS.type=='unix') {
 #' ## test mc.wbart() function
-#'   res = mc.wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500, mc.cores=2)
+#'   res = mc.wbart(data$X, data$Y, ntree=10, nskip=100, ndpost=100, mc.cores=2)
 #' }
 mc.wbart = function(x.train, 
                     y.train, 
@@ -182,9 +202,9 @@ mc.wbart = function(x.train,
                     keeptrainfits=TRUE, 
                     transposed=FALSE,
                     verbose=FALSE,
-                    mc.cores = 2L, 
-                    nice = 19L,
-                    seed = 99L) {
+                    mc.cores=2L, 
+                    nice=19L,
+                    seed=99L) {
     
     # data
     if(is.null(dim(x.train))) {

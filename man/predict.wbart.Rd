@@ -27,18 +27,17 @@ BART is a Bayesian approach to nonparametric function estimation and inference u
 For a continuous response \eqn{y} and a \eqn{p-}dimensional vector of predictors \eqn{x = (x_1, ..., x_p)'}, 
 BART models \eqn{y} and \eqn{x} using \deqn{y = f(x) + \epsilon,}
 where \eqn{f} is a sum of Bayesian regression trees function and \eqn{\epsilon ~ N(0, \sigma^2)}.\cr
-This function uses S3 method for the class \code{wbart} and is inherited from the CRAN R package \strong{BART} 
-(\emph{Copyright (C) 2017 Robert McCulloch and Rodney Sparapani}).
+This function uses S3 method for the class \code{wbart} and is inherited from the CRAN R package 'BART'.
 }
 \examples{
  
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, FALSE)
+data = mixone(100, 10, 1, FALSE)
 ## run wbart() function
-res = wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
+res = wbart(data$X, data$Y, ntree=10, nskip=100, ndpost=100)
 ## test predict.wbart() function
-newdata = mixone(5, 50, 1, FALSE)$X
+newdata = mixone(5, 10, 1, FALSE)$X
 pred = predict(res, newdata)
 }
 \references{

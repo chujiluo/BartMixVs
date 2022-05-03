@@ -13,7 +13,8 @@ friedman(n, p, sigma, binary)
 
 \item{sigma}{The error variance.}
 
-\item{binary}{A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} indicates that continuous responses are generated.}
+\item{binary}{A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} 
+indicates that continuous responses are generated.}
 }
 \value{
 Return a list with the following components.
@@ -24,15 +25,18 @@ Return a list with the following components.
 \item{prob}{A vector of length n representing the values of \eqn{\Phi(f0(x))}, which is only returned when \code{binary = TRUE}.}
 }
 \description{
-Generate data including responses and predictors values according to an example of Friedman, J. H. (1991). "Multivariate adaptive regression splines." \emph{Ann. Statist.} \strong{19} 1--141.
+Generate data including responses and predictors values according to an example of Friedman, J. H. (1991). "Multivariate adaptive 
+regression splines." \emph{Ann. Statist.} \strong{19} 1--141.
 }
 \details{
 Sample the predictors \eqn{x_1, ..., x_p} from Uniform(0, 1) independently.
-If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where \deqn{f0(x) = 10sin(\pi x_1*x_2) + 20(x_3-0.5)^2 + 10x_4 + 5x_5.}
-If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
+If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where 
+\deqn{f0(x) = 10sin(\pi x_1*x_2) + 20(x_3-0.5)^2 + 10x_4 + 5x_5.}
+If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and 
+\eqn{\Phi} is the cumulative density function of the standard normal distribution.
 }
 \examples{
-friedman(200, 10, 1, FALSE)
+friedman(100, 10, 1, FALSE)
 }
 \references{
 Friedman, J. H. (1991). 

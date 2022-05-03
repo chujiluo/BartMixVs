@@ -101,16 +101,16 @@
 #' @examples 
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, FALSE)
+#' data = mixone(100, 10, 1, FALSE)
 #' ## test medianInclusion.vs() function
 #' res = medianInclusion.vs(data$X, data$Y, probit=FALSE, vip.selection=TRUE,  
-#' true.idx=c(1, 2, 26:28), plot=TRUE, ntree=20, ndpost=1000, nskip=1000, verbose=FALSE)
+#' true.idx=c(1, 2, 6:8), plot=FALSE, ntree=10, ndpost=100, nskip=100, verbose=FALSE)
 medianInclusion.vs = function(x.train, 
                                y.train, 
                                probit=FALSE,             ## pbart or wbart    
                                vip.selection=TRUE,       ## if do VS using BART VIP with threshold = 1/p
                                true.idx=NULL, 
-                               plot=F, 
+                               plot=FALSE, 
                                num.var.plot=Inf,
                                theta=0,                  ## DART parameters
                                omega=1,                      
@@ -288,7 +288,7 @@ medianInclusion.vs = function(x.train,
   #------------------------------
   # timer ends
   end = Sys.time()
-  cat("Elapsed", end-start, '\n')
+  if(verbose) cat("Elapsed", end-start, '\n')
   
   return(res)
 }

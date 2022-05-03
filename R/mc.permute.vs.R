@@ -216,26 +216,24 @@ multiple.bart = function(x.train,
 #' @seealso 
 #' \code{\link{permute.vs}}, \code{\link{medianInclusion.vs}}, \code{\link{mc.backward.vs}} and \code{\link{abc.vs}}.
 #' @examples 
-#' \dontrun{
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, FALSE)
+#' data = mixone(100, 10, 1, FALSE)
 #' ## parallel::mcparallel/mccollect do not exist on windows
 #' if(.Platform$OS.type=='unix') {
 #' ## test mc.permute.vs() function
 #'   res = mc.permute.vs(data$X, data$Y, probit=FALSE, npermute=100, nreps=10, alpha=0.05, 
-#'   true.idx=c(1, 2, 26:28), plot=TRUE, ntree=20, ndpost=1000, nskip=1000, mc.cores=2)
-#' }
+#'   true.idx=c(1, 2, 6:8), plot=FALSE, ntree=10, ndpost=100, nskip=100, mc.cores=2)
 #' }
 mc.permute.vs = function(x.train, 
                          y.train,
-                         probit=F, 
+                         probit=FALSE, 
                          npermute=100L, 
                          nreps=10L,                          ## number of replicates 
                          alpha=0.05,                            ## local threshold
                          true.idx=NULL, 
-                         plot=T, 
-                         n.var.plot = Inf,
+                         plot=TRUE, 
+                         n.var.plot=Inf,
                          xinfo=matrix(0.0,0,0), 
                          numcut=100L,    ## xinfo parameters
                          usequants=FALSE, 
@@ -250,9 +248,9 @@ mc.permute.vs = function(x.train,
                          nskip=1000,
                          keepevery=1L, 
                          verbose=FALSE, 
-                         mc.cores = 2L, 
-                         nice = 19L,
-                         seed = 99L) {
+                         mc.cores=2L, 
+                         nice=19L,
+                         seed=99L) {
   
   if(.Platform$OS.type!='unix')
     stop('parallel::mcparallel/mccollect do not exist on windows')
@@ -275,7 +273,7 @@ mc.permute.vs = function(x.train,
   
   #-----------------------------------------------------------
   # get avg/median variable importance from the original data
-  cat("original data set...")
+  if(verbose) cat("original data set...")
   
   avg.vip.mtx = matrix(NA, nrow = nreps, ncol = ncol(x.train))
   median.mi.mtx = matrix(NA, nrow = nreps, ncol = ncol(x.train))
@@ -317,12 +315,12 @@ mc.permute.vs = function(x.train,
     avg.within.type.vip = sort(avg.within.type.vip, decreasing = T)
   }
   
-  cat("complete! \n")
+  if(verbose) cat("complete! \n")
   
   
   #-----------------------------------------------------------
   # build null permutation
-  cat('null data sets...')
+  if(verbose) cat('null data sets...')
   
   ## parallel
   mc.cores.detected = detectCores()
@@ -369,7 +367,7 @@ mc.permute.vs = function(x.train,
   
   rm(permute.list)
   
-  cat("complete! \n")
+  if(verbose) cat("complete! \n")
   
   #-----------------------------------------------------------
   # sort permute mat and return results
@@ -522,7 +520,7 @@ mc.permute.vs = function(x.train,
   #------------------------------
   # timer ends
   end = Sys.time()
-  cat("Elapsed", end-start, '\n')
+  if(verbose) cat("Elapsed", end-start, '\n')
   
   return(res)
 }

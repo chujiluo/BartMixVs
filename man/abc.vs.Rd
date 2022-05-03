@@ -13,7 +13,7 @@ abc.vs(
   beta.params = c(1, 1),
   beta.theta = NA,
   split.ratio = 0.5,
-  probit = F,
+  probit = FALSE,
   true.idx = NULL,
   analysis = TRUE,
   sparse = FALSE,
@@ -158,14 +158,12 @@ Given the MPVIPs, predictors with MPVIP exceeding a pre-specified threshold are 
 See Liu, Rockova and Wang (2021) or Section 2.2.4 in Luo and Daniels (2021) for details.
 }
 \examples{
-\dontrun{
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, FALSE)
+data = mixone(100, 10, 1, FALSE)
 ## test abc.vs() function
-res = abc.vs(data$X, data$Y, nabc=1000, tolerance=0.1, threshold=0.25, beta.params=c(1.0, 1.0), 
-split.ratio=0.5, probit=FALSE, true.idx=c(1,2,26:28), ntree=10, ndpost=1, nskip=200, analysis=TRUE)
-}
+res = abc.vs(data$X, data$Y, nabc=100, tolerance=0.1, threshold=0.25, beta.params=c(1.0, 1.0), 
+split.ratio=0.5, probit=FALSE, true.idx=c(1,2,6:8), ntree=10, ndpost=1, nskip=200, analysis=TRUE)
 }
 \references{
 Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 

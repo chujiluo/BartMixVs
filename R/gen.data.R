@@ -1,15 +1,19 @@
 #' Generate data for an example of Friedman (1991)
 #' 
-#' Generate data including responses and predictors values according to an example of Friedman, J. H. (1991). "Multivariate adaptive regression splines." \emph{Ann. Statist.} \strong{19} 1--141.
+#' Generate data including responses and predictors values according to an example of Friedman, J. H. (1991). "Multivariate adaptive 
+#' regression splines." \emph{Ann. Statist.} \strong{19} 1--141.
 #' 
 #' Sample the predictors \eqn{x_1, ..., x_p} from Uniform(0, 1) independently.
-#' If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where \deqn{f0(x) = 10sin(\pi x_1*x_2) + 20(x_3-0.5)^2 + 10x_4 + 5x_5.}
-#' If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
+#' If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where 
+#' \deqn{f0(x) = 10sin(\pi x_1*x_2) + 20(x_3-0.5)^2 + 10x_4 + 5x_5.}
+#' If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and 
+#' \eqn{\Phi} is the cumulative density function of the standard normal distribution.
 #' 
 #' @param n The number of observations.
 #' @param p The number of predictors.
 #' @param sigma The error variance.
-#' @param binary A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} indicates that continuous responses are generated.
+#' @param binary A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} 
+#' indicates that continuous responses are generated.
 #' @return Return a list with the following components.
 #' \item{X}{An n by p data frame representing predictors values, with each row corresponding an observation.}
 #' \item{Y}{A vector of length n representing response values.}
@@ -26,7 +30,7 @@
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #' @examples
-#' friedman(200, 10, 1, FALSE)
+#' friedman(100, 10, 1, FALSE)
 friedman = function(n, p, sigma, binary) {
   
   X = matrix(runif(n * p), nrow = n, ncol = p)
@@ -53,16 +57,20 @@ friedman = function(n, p, sigma, binary) {
 
 #' Generate data for an example of Zhu, Zeng and Kosorok (2015)
 #' 
-#' Generate data including responses and predictors values according to an example of Zhu, R., Zeng, D. and Kosorok, M. R. (2015). "Reinforcement learning trees." \emph{J. Amer. Statist. Assoc.} \strong{110} 1770--1784. 
+#' Generate data including responses and predictors values according to an example of Zhu, R., Zeng, D. and Kosorok, M. R. (2015). 
+#' "Reinforcement learning trees." \emph{J. Amer. Statist. Assoc.} \strong{110} 1770--1784. 
 #' 
 #' Sample the predictors \eqn{x_1, ..., x_p} from Normal(\eqn{0, \Sigma}) with \eqn{\Sigma_{jk} = 0.3^{|j-k|}}, \eqn{j,k = 1, ..., p}.
-#' If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where \deqn{f0(x) = 2x_1*x_4 + 2x_7*x_{10}.}
-#' If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
+#' If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where 
+#' \deqn{f0(x) = 2x_1*x_4 + 2x_7*x_{10}.}
+#' If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and
+#'  \eqn{\Phi} is the cumulative density function of the standard normal distribution.
 #' 
 #' @param n The number of observations.
 #' @param p The number of predictors.
 #' @param sigma The error variance.
-#' @param binary A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} indicates that continuous responses are generated.
+#' @param binary A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} 
+#' indicates that continuous responses are generated.
 #' @return Return a list with the following components.
 #' \item{X}{An n by p data frame representing predictors values, with each row corresponding an observation.}
 #' \item{Y}{A vector of length n representing response values.}
@@ -79,7 +87,7 @@ friedman = function(n, p, sigma, binary) {
 #'   "Reinforcement learning trees." 
 #'   \emph{J. Amer. Statist. Assoc.} \strong{110} 1770--1784.
 #' @examples
-#' checkerboard(200, 10, 1, FALSE)
+#' checkerboard(100, 10, 1, FALSE)
 checkerboard = function(n, p, sigma, binary) {
   
   cov_mtx = matrix(NA, nrow = p, ncol = p)
@@ -119,12 +127,14 @@ checkerboard = function(n, p, sigma, binary) {
 #' \eqn{x_{ceiling(p/2)+1}, ..., x_p} from Uniform(0, 1) independently.
 #' If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where 
 #' \deqn{f0(x) = 10sin(\pi x_{ceiling(p/2)+1}*x_{ceiling(p/2)+2}) + 20(x_{ceiling(p/2)+3}-0.5)^2 + 10x_1 + 5x_2.}
-#' If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
+#' If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and
+#' \eqn{\Phi} is the cumulative density function of the standard normal distribution.
 #' 
 #' @param n The number of observations.
 #' @param p The number of predictors.
 #' @param sigma The error variance.
-#' @param binary A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} indicates that continuous responses are generated.
+#' @param binary A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} 
+#' indicates that continuous responses are generated.
 #' @return Return a list with the following components.
 #' \item{X}{An n by p data frame representing predictors values, with each row corresponding an observation.}
 #' \item{Y}{A vector of length n representing response values.}
@@ -137,7 +147,7 @@ checkerboard = function(n, p, sigma, binary) {
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #' @examples
-#' mixone(200, 10, 1, FALSE)
+#' mixone(100, 10, 1, FALSE)
 mixone = function(n, p, sigma, binary) {
   k = ceiling(p / 2)
   X = matrix(NA, nrow = n, ncol = p)
@@ -176,11 +186,13 @@ mixone = function(n, p, sigma, binary) {
 #' and \eqn{x_{41}, ..., x_{84}} from a multivariate normal distribution with mean 0, variance 1 and correlation 0.3.
 #' If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where 
 #' \deqn{f0(x) = -4 + x_1 + sin(\pi x_1*x_{44}) - x_{21} + 0.6x_{41}*x_{42} - exp[-2(x_{42}+1)^2] - x_{43}^2 + 0.5x_{44}.}
-#' If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
+#' If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and 
+#' \eqn{\Phi} is the cumulative density function of the standard normal distribution.
 #' 
 #' @param n The number of observations.
 #' @param sigma The error variance.
-#' @param binary A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} indicates that continuous responses are generated.
+#' @param binary A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} 
+#' indicates that continuous responses are generated.
 #' @return Return a list with the following components.
 #' \item{X}{An n by p data frame representing predictors values, with each row corresponding an observation.}
 #' \item{Y}{A vector of length n representing response values.}
@@ -193,7 +205,7 @@ mixone = function(n, p, sigma, binary) {
 #'   "Variable Selection Using Bayesian Additive Regression Trees."
 #'   \emph{arXiv preprint arXiv:2112.13998}.
 #' @examples
-#' mixtwo(200, 1, FALSE)
+#' mixtwo(100, 1, FALSE)
 mixtwo = function(n, sigma, binary) {
   X = matrix(NA, nrow = n, ncol = 84)
   X[, 1:20] = matrix(rbinom(n*20, size = 1, prob = 0.2), nrow = n, ncol = 20)

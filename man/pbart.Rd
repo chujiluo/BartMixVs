@@ -37,7 +37,7 @@ pbart(
   nkeeptreedraws = ndpost,
   printevery = 100L,
   transposed = FALSE,
-  verbose = TRUE
+  verbose = FALSE
 )
 }
 \arguments{
@@ -175,8 +175,8 @@ BART is a Bayesian approach to nonparametric function estimation and inference u
 For a binary response \eqn{y} and a \eqn{p-}dimensional vector of predictors \eqn{x = (x_1, ..., x_p)'}, 
 probit BART models \eqn{y} and \eqn{x} using \deqn{P(Y=1|x) = \Phi[f(x)],}
 where \eqn{\Phi} is the CDF of the standard normal distribution and \eqn{f} is a sum of Bayesian regression trees function.\cr
-The function \code{pbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
-and Rodney Sparapani}) and two modifications are made for the splitting probability and variable importance (see Details).
+The function \code{pbart()} is inherited from the CRAN R package 'BART' and two modifications are made for the splitting 
+probability and variable importance (see Details).
 }
 \details{
 This function is inherited from \code{BART::pbart()}.
@@ -193,9 +193,9 @@ The second modification is to provide five types of variable importance measures
  
 ## simulate data (Scenario B.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, TRUE)
+data = mixone(100, 10, 1, TRUE)
 ## test pbart() function
-res = pbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
+res = pbart(data$X, data$Y, ntree=10, nskip=100, ndpost=100)
 }
 \references{
 Chipman, H. A., George, E. I. and McCulloch, R. E. (2010). 

@@ -22,14 +22,14 @@ END_RCPP
 }
 
 RcppExport SEXP cpbart(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-RcppExport SEXP cpwbart(SEXP, SEXP, SEXP);
+RcppExport SEXP cpwbart(SEXP, SEXP, SEXP, SEXP);
 RcppExport SEXP cwbart(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 RcppExport SEXP mc_cores_openmp();
 
 static const R_CallMethodDef CallEntries[] = {
     {"_BartMixVs_rcpp_hello_world", (DL_FUNC) &_BartMixVs_rcpp_hello_world, 0},
     {"cpbart",          (DL_FUNC) &cpbart,          28},
-    {"cpwbart",         (DL_FUNC) &cpwbart,          3},
+    {"cpwbart",         (DL_FUNC) &cpwbart,          4},
     {"cwbart",          (DL_FUNC) &cwbart,          32},
     {"mc_cores_openmp", (DL_FUNC) &mc_cores_openmp,  0},
     {NULL, NULL, 0}

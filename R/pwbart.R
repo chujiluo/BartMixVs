@@ -1,3 +1,23 @@
+## This file is modified from the source file of the function BART::pwbart().
+## See below for the copyright of the CRAN R package 'BART'.
+
+## BART: Bayesian Additive Regression Trees
+## Copyright (C) 2018 Robert McCulloch and Rodney Sparapani
+
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, a copy is available at
+## https://www.R-project.org/Licenses/GPL-2
+
 #' Predicting new observations with a previously fitted BART model
 #' 
 #' BART is a Bayesian approach to nonparametric function estimation and inference using a sum of trees.\cr
@@ -7,8 +27,7 @@
 #' For a binary response \eqn{y}, probit BART models \eqn{y} and \eqn{x} using \deqn{P(Y=1|x)=\Phi[f(x)],}
 #' where \eqn{\Phi} is the CDF of the standard normal distribution and \eqn{f} is a sum of Bayesian regression 
 #' trees function.\cr
-#' The function \code{pwbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
-#' and Rodney Sparapani}).
+#' The function \code{pwbart()} is inherited from the CRAN R package 'BART'.
 #' 
 #' @param x.test A matrix or a data frame of predictors values for prediction with each row corresponding to an observation 
 #' and each column corresponding to a predictor.
@@ -21,8 +40,7 @@
 #' calling the internal versions of these functions.
 #' @param dodraws A Boolean argument indicating whether to return the draws themselves (the default), or whether to return the
 #' mean of the draws as specified by \code{dodraws=FALSE}.
-#' @param nice Set the job niceness. The default niceness is \eqn{19} and niceness goes from \eqn{0} (highest) to \eqn{19} 
-#' (lowest).
+#' @param verbose A Boolean argument indicating whether any messages are printed out.
 #' 
 #' @return Returns the predictions for \code{x.test}. If \code{dodraws=TRUE}, return a matrix of prediction with each row 
 #' corresponding to a draw and each column corresponding to a new observation; if \code{dodraws=FALSE}, return a vector of 
@@ -54,11 +72,11 @@
 #' @examples  
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, FALSE)
+#' data = mixone(100, 10, 1, FALSE)
 #' ## run wbart() function
-#' res = wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
+#' res = wbart(data$X, data$Y, ntree=10, nskip=100, ndpost=100)
 #' ## test pwbart() function
-#' x.test = mixone(5, 50, 1, FALSE)$X
+#' x.test = mixone(5, 10, 1, FALSE)$X
 #' pred = pwbart(x.test, res$treedraws, res$rm.const, mu=mean(data$Y))
 pwbart = function(x.test,		         #x matrix to predict at
                   treedraws,		      #$treedraws from wbart or pbart
@@ -67,7 +85,7 @@ pwbart = function(x.test,		         #x matrix to predict at
                   mc.cores=1L,         #thread count
                   transposed=FALSE,	
                   dodraws=TRUE,
-                  nice=19L             #mc.pwbart only
+                  verbose=FALSE
 ){
    if(!transposed) x.test = t(bartModelMatrix(x.test)[ , rm.const])
    
@@ -79,7 +97,8 @@ pwbart = function(x.test,		         #x matrix to predict at
    res = .Call("cpwbart",
                treedraws,	#trees list
                x.test,      #the test x
-               mc.cores   	#thread count
+               mc.cores,   	#thread count
+               verbose
    )
    if(dodraws) return(res$yhat.test+mu)
    else return(apply(res$yhat.test, 2, mean)+mu)

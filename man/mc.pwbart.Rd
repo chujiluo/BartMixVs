@@ -50,20 +50,19 @@ where \eqn{f} is a sum of Bayesian regression trees function and \eqn{\epsilon ~
 For a binary response \eqn{y}, probit BART models \eqn{y} and \eqn{x} using \deqn{P(Y=1|x)=\Phi[f(x)],}
 where \eqn{\Phi} is the CDF of the standard normal distribution and \eqn{f} is a sum of Bayesian regression 
 trees function.\cr
-The function \code{mc.pwbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
-and Rodney Sparapani}).
+The function \code{mc.pwbart()} is inherited from the CRAN R package 'BART'.
 }
 \examples{
  
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
-data = mixone(500, 50, 1, FALSE)
+data = mixone(100, 10, 1, FALSE)
 ## run wbart() function
-res = wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
+res = wbart(data$X, data$Y, ntree=10, nskip=100, ndpost=100)
 ## parallel::mcparallel/mccollect do not exist on windows
 if(.Platform$OS.type=='unix') {
 ## test pwbart() function
-  x.test = mixone(5, 50, 1, FALSE)$X
+  x.test = mixone(5, 10, 1, FALSE)$X
   pred = mc.pwbart(x.test, res$treedraws, res$rm.const, mu=mean(data$Y), mc.cores=2)
 }
 }

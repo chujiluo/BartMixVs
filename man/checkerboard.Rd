@@ -13,7 +13,8 @@ checkerboard(n, p, sigma, binary)
 
 \item{sigma}{The error variance.}
 
-\item{binary}{A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} indicates that continuous responses are generated.}
+\item{binary}{A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} 
+indicates that continuous responses are generated.}
 }
 \value{
 Return a list with the following components.
@@ -24,15 +25,18 @@ Return a list with the following components.
 \item{prob}{A vector of length n representing the values of \eqn{\Phi(f0(x))}, which is only returned when \code{binary = TRUE}.}
 }
 \description{
-Generate data including responses and predictors values according to an example of Zhu, R., Zeng, D. and Kosorok, M. R. (2015). "Reinforcement learning trees." \emph{J. Amer. Statist. Assoc.} \strong{110} 1770--1784.
+Generate data including responses and predictors values according to an example of Zhu, R., Zeng, D. and Kosorok, M. R. (2015). 
+"Reinforcement learning trees." \emph{J. Amer. Statist. Assoc.} \strong{110} 1770--1784.
 }
 \details{
 Sample the predictors \eqn{x_1, ..., x_p} from Normal(\eqn{0, \Sigma}) with \eqn{\Sigma_{jk} = 0.3^{|j-k|}}, \eqn{j,k = 1, ..., p}.
-If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where \deqn{f0(x) = 2x_1*x_4 + 2x_7*x_{10}.}
-If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
+If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where 
+\deqn{f0(x) = 2x_1*x_4 + 2x_7*x_{10}.}
+If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and
+ \eqn{\Phi} is the cumulative density function of the standard normal distribution.
 }
 \examples{
-checkerboard(200, 10, 1, FALSE)
+checkerboard(100, 10, 1, FALSE)
 }
 \references{
 Luo, C. and Daniels, M. J. (2021)

@@ -11,7 +11,8 @@ mixtwo(n, sigma, binary)
 
 \item{sigma}{The error variance.}
 
-\item{binary}{A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} indicates that continuous responses are generated.}
+\item{binary}{A boolean argument: \code{binary = TRUE} indicates that binary responses are generated and \code{binary = FALSE} 
+indicates that continuous responses are generated.}
 }
 \value{
 Return a list with the following components.
@@ -30,10 +31,11 @@ Sample the predictors \eqn{x_1, ..., x_{20}} from Bernoulli(0.2) independently,
 and \eqn{x_{41}, ..., x_{84}} from a multivariate normal distribution with mean 0, variance 1 and correlation 0.3.
 If \code{binary = FALSE}, sample the continuous response \eqn{y} from Normal(\eqn{f0(x), \sigma^2}), where 
 \deqn{f0(x) = -4 + x_1 + sin(\pi x_1*x_{44}) - x_{21} + 0.6x_{41}*x_{42} - exp[-2(x_{42}+1)^2] - x_{43}^2 + 0.5x_{44}.}
-If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and \eqn{\Phi} is the cumulative density function of the standard normal distribution.
+If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{\Phi(f0(x))}) where \eqn{f0} is defined above and 
+\eqn{\Phi} is the cumulative density function of the standard normal distribution.
 }
 \examples{
-mixtwo(200, 1, FALSE)
+mixtwo(100, 1, FALSE)
 }
 \references{
 Luo, C. and Daniels, M. J. (2021)

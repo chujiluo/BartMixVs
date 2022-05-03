@@ -1,3 +1,23 @@
+## This file is modified from the source file of the function BART::mc.pwbart().
+## See below for the copyright of the CRAN R package 'BART'.
+
+## BART: Bayesian Additive Regression Trees
+## Copyright (C) 2018 Robert McCulloch and Rodney Sparapani
+
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+
+## You should have received a copy of the GNU General Public License
+## along with this program; if not, a copy is available at
+## https://www.R-project.org/Licenses/GPL-2
+
 #' Predicting new observations based on a previously fitted BART model with parallel computation
 #' 
 #' BART is a Bayesian approach to nonparametric function estimation and inference using a sum of trees.\cr
@@ -7,8 +27,7 @@
 #' For a binary response \eqn{y}, probit BART models \eqn{y} and \eqn{x} using \deqn{P(Y=1|x)=\Phi[f(x)],}
 #' where \eqn{\Phi} is the CDF of the standard normal distribution and \eqn{f} is a sum of Bayesian regression 
 #' trees function.\cr
-#' The function \code{mc.pwbart()} is inherited from the CRAN R package \strong{BART} (\emph{Copyright (C) 2017 Robert McCulloch 
-#' and Rodney Sparapani}).
+#' The function \code{mc.pwbart()} is inherited from the CRAN R package 'BART'.
 #' 
 #' @param x.test A matrix or a data frame of predictors values for prediction with each row corresponding to an observation 
 #' and each column corresponding to a predictor.
@@ -54,13 +73,13 @@
 #' @examples  
 #' ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 #' set.seed(123)
-#' data = mixone(500, 50, 1, FALSE)
+#' data = mixone(100, 10, 1, FALSE)
 #' ## run wbart() function
-#' res = wbart(data$X, data$Y, ntree=50, nskip=200, ndpost=500)
+#' res = wbart(data$X, data$Y, ntree=10, nskip=100, ndpost=100)
 #' ## parallel::mcparallel/mccollect do not exist on windows
 #' if(.Platform$OS.type=='unix') {
 #' ## test pwbart() function
-#'   x.test = mixone(5, 50, 1, FALSE)$X
+#'   x.test = mixone(5, 10, 1, FALSE)$X
 #'   pred = mc.pwbart(x.test, res$treedraws, res$rm.const, mu=mean(data$Y), mc.cores=2)
 #' }
 
