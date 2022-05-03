@@ -175,12 +175,14 @@ If \code{plot=TRUE}, three (or two if the predictors are of the same type) plots
 are generated.
 }
 \examples{
+\donttest{
 ## simulate data (Scenario C.M.1. in Luo and Daniels (2021))
 set.seed(123)
 data = mixone(100, 10, 1, FALSE)
 ## test permute.vs() function
 res = permute.vs(data$X, data$Y, probit=FALSE, npermute=100, nreps=10, alpha=0.05, 
 true.idx=c(1,2,6:8), plot=FALSE, ntree=10, ndpost=100, nskip=100)
+}
 }
 \references{
 Bleich, Justin et al. (2014).

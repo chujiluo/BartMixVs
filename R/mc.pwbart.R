@@ -82,7 +82,6 @@
 #'   x.test = mixone(5, 10, 1, FALSE)$X
 #'   pred = mc.pwbart(x.test, res$treedraws, res$rm.const, mu=mean(data$Y), mc.cores=2)
 #' }
-
 mc.pwbart = function(x.test,		#x matrix to predict at
                      treedraws,		#$treedraws from wbart
                      rm.const,      #$rm.const from wbart or pbart

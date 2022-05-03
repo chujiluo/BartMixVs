@@ -36,7 +36,7 @@ If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{
 \eqn{\Phi} is the cumulative density function of the standard normal distribution.
 }
 \examples{
-friedman(100, 10, 1, FALSE)
+data = friedman(100, 10, 1, FALSE)
 }
 \references{
 Friedman, J. H. (1991). 

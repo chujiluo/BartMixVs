@@ -35,7 +35,7 @@ If \code{binary = TRUE}, sample the binary response \eqn{y} from Bernoulli(\eqn{
 \eqn{\Phi} is the cumulative density function of the standard normal distribution.
 }
 \examples{
-mixtwo(100, 1, FALSE)
+data = mixtwo(100, 1, FALSE)
 }
 \references{
 Luo, C. and Daniels, M. J. (2021)
