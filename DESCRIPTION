@@ -17,6 +17,7 @@ Description: Bayesian additive regression trees (BART) provides flexible non-par
 License: GPL (>= 2)  
 Depends: R (>= 2.10), nlme, nnet
 Imports: Rcpp (>= 1.0.6), loo, mvtnorm
+URL: https://github.com/chujiluo/BartMixVs
 LinkingTo: Rcpp
 RoxygenNote: 7.1.1
 Encoding: UTF-8
